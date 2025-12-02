@@ -170,7 +170,8 @@ def scrape_ilFatto(url:str, nome:str, prompt:list, driver):
 def scrape_Stampa(url:str, nome:str, prompt:list, driver):
     driver.get(url) #go to webpage
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'iubenda-cs-accept-btn'))).click() #accept cookies
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="home"]/div[6]/div[2]/div/div[1]/button[2]'))).click() #open search bar screen
+    parent = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, 'page-header__togglers')))
+    WebDriverWait(parent, 15).until(EC.presence_of_element_located((By.CLASS_NAME, 'ls-page-search__panel__toggle'))).click() #open search bar screen
 
     search = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="home"]/div[5]/div/div/div[2]/div/form/div/input[1]')))  #find search bar
     search.click()
@@ -269,6 +270,7 @@ for i in range(len(LIST_OF_SITES)):
     finish_time = t.time()
     print(f"Completato in {round(finish_time - start_time, 2)} secondi.")
     start_time = finish_time
+
 
 
 
