@@ -20,8 +20,12 @@ options = Options() #Selenium options
 options.add_argument("--headless") #run in the background 
 
 def write_to_json(data, path_json): #dump data on a json, append to existing data
-    old_data = json.load(open(path_json))
-    new_data = old_data | data
+     try:
+        old_data = json.load(open(path_json))
+        new_data = old_data | data
+    except:
+        new_data = data
+
     with open(path_json, "w", encoding="utf-8") as f:
         json.dump(new_data, f, indent=4)
 
@@ -265,5 +269,6 @@ for i in range(len(LIST_OF_SITES)):
     finish_time = t.time()
     print(f"Completato in {round(finish_time - start_time, 2)} secondi.")
     start_time = finish_time
+
 
 
